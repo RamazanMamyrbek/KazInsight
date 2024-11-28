@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Places</title>
+</head>
+<body>
+<form th:action="@{/places}" method="get">
+    <input type="text" name="filter" th:value="${filter}">
+    <button type="submit">Search</button>
+</form>
+<br>
+<h1>Places</h1>
+<div>
+    <div th:each="place : ${places}">
+        <a th:text="${place.name}" th:href="@{/places/{placeId}(placeId=${place.id})}"></a>
+    </div>
+</div>
+
+</body>
+</html>

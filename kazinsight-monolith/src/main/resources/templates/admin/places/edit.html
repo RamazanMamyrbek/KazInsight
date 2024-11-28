@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create place</title>
+</head>
+<body>
+<a th:href="@{/admin/places/{placeId}(placeId=${place.id})}">&larr; Back to place page</a>
+<div th:if="${errors}">
+    <h2>Errors while creating place</h2>
+    <ul>
+        <li th:each="error: ${errors}" th:text="${error}"></li>
+    </ul>
+</div>
+<form th:action="@{/admin/places/{placeId}(placeId=${place.id})}" method="post">
+    <label>
+        Place name:<br>
+        <input type="text" name="name" th:value="${payload != null ? payload.name : place.name}">
+        <br>
+    </label>
+    <label>
+        Description:<br>
+        <input type="text" name="description" th:value="${payload != null ? payload.description : place.description}">
+        <br>
+    </label>
+    <label>
+        Longitude:<br>
+        <input type="text" name="longitude" th:value="${payload != null ? payload.longitude : place.longitude}">
+        <br>
+    </label>
+    <label>
+        Latitude:<br>
+        <input type="text" name="latitude" th:value="${payload != null ? payload.latitude : place.latitude}">
+        <br>
+    </label>
+    <label>
+        Location:<br>
+        <input type="text" name="location" th:value="${payload != null ? payload.location : place.location}">
+        <br>
+    </label>
+    <br>
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>

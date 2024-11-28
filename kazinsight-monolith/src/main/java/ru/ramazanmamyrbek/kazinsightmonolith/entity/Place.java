@@ -32,6 +32,9 @@ public class Place extends CommonEntity{
     @Column(name = "latitude")
     private Double latitude;
 
+    @Column(name = "location")
+    private String location;
+
     @ManyToOne
     @JoinColumn(name = "creator_id")
     private User creator;
