@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[[${place.name}]]</title>
+</head>
+<body>
+<a th:href="@{/places}">&larr; Back</a>
+<h1 th:text="${place.name}"></h1>
+<ul>
+    <li><strong>Name</strong>: <span th:text="${place.name}"></span></li>
+    <li><strong>Description</strong>: <span th:text="${place.description}"></span></li>
+    <li><strong>Location</strong>: <span th:text="${place.location}"></span></li>
+</ul>
+</body>
+</html>

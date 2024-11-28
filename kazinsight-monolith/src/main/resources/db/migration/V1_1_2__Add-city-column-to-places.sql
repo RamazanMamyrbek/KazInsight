@@ -1,0 +1,1 @@
+alter table places add column location varchar(50);
