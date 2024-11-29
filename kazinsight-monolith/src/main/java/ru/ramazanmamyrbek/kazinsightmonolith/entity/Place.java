@@ -42,7 +42,7 @@ public class Place extends CommonEntity{
     @ManyToMany(mappedBy = "favoritePlaces")
     private List<User> favoriteUsers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "place")
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<Image> images;
 
 }

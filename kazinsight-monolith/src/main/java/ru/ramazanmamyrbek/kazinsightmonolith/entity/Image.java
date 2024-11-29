@@ -1,10 +1,7 @@
 package ru.ramazanmamyrbek.kazinsightmonolith.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "images")
@@ -12,6 +9,9 @@ import lombok.ToString;
 @Setter
 @ToString(exclude = {"tour", "place"})
 @EqualsAndHashCode(callSuper = false, exclude = {"tour", "place"})
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
