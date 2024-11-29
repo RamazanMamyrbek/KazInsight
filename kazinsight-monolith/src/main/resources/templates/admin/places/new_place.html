@@ -13,7 +13,7 @@
         <li th:each="error: ${errors}" th:text="${error}"></li>
     </ul>
 </div>
-<form th:action="@{/admin/places}" method="post">
+<form th:action="@{/admin/places}" method="post" enctype="multipart/form-data">
     <label>
         Place name:<br>
         <input type="text" name="name" th:value="${payload?.name}">
@@ -38,6 +38,10 @@
         Location:<br>
         <input type="text" name="location" th:value="${payload?.location}">
         <br>
+    </label>
+    <label>
+        Images:<br>
+        <input type="file" name="images" multiple>
     </label>
     <br>
     <button type="submit">Create</button>

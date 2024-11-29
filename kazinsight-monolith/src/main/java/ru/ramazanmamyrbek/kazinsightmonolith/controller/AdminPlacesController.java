@@ -12,6 +12,7 @@ import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.UpdatePlacePaylo
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Place;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.PlaceService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -35,7 +36,7 @@ public class AdminPlacesController {
     }
 
     @PostMapping
-    public String createPlace(@Valid NewPlacePayload payload, BindingResult bindingResult, Model model) {
+    public String createPlace(@Valid NewPlacePayload payload, BindingResult bindingResult, Model model) throws IOException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors()
                     .stream()

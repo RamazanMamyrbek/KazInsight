@@ -1,20 +1,25 @@
-package ru.ramazanmamyrbek.kazinsightmonolith.service;
+package ru.ramazanmamyrbek.kazinsightmonolith.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewPlacePayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.UpdatePlacePayload;
+import ru.ramazanmamyrbek.kazinsightmonolith.entity.Image;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Place;
 import ru.ramazanmamyrbek.kazinsightmonolith.repository.PlaceRepository;
+import ru.ramazanmamyrbek.kazinsightmonolith.service.ImageService;
+import ru.ramazanmamyrbek.kazinsightmonolith.service.PlaceService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
-public class DefaultPlaceService implements PlaceService {
+public class PlaceServiceImpl implements PlaceService {
     private final PlaceRepository placeRepository;
+    private final ImageService imageService;
 
     @Override
     public List<Place> findAll(String filter) {
@@ -26,15 +31,15 @@ public class DefaultPlaceService implements PlaceService {
 
     @Override
     @Transactional
-    public Place createPlace(NewPlacePayload payload) {
+    public Place createPlace(NewPlacePayload payload) throws IOException {
         Place place = new Place();
-
         place.setName(payload.name());
         place.setDescription(payload.description());
         place.setLongitude(payload.longitude());
         place.setLatitude(payload.latitude());
         place.setLocation(payload.location());
-
+        List<Image> images = imageService.saveListImage(payload.images(), place);
+        imageService.saveListImageToDB(images);
         return placeRepository.save(place);
     }
 
