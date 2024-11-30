@@ -8,7 +8,7 @@
 <body>
 <a th:href="@{/admin/places/{placeId}(placeId=${place.id})}">&larr; Back to place page</a>
 <div th:if="${errors}">
-    <h2>Errors while creating place</h2>
+    <h2>Errors while editing place</h2>
     <ul>
         <li th:each="error: ${errors}" th:text="${error}"></li>
     </ul>

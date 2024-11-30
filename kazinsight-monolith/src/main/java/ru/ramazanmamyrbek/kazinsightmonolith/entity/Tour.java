@@ -36,7 +36,7 @@ public class Tour extends CommonEntity{
     @Column(name = "price")
     private Double price;
 
-    @OneToMany(mappedBy = "tour")
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL)
     private List<Image> images = new ArrayList<>();
 
     @ManyToMany

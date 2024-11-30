@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Tour</title>
+</head>
+<body>
+    <a th:href="@{/admin/tours/{tourId}(tourId=${tour.id})}">&larr; Back</a>
+    <div th:if="${errors}">
+        <h2>Errors while editing tour:</h2>
+        <ul>
+            <li th:each="error: ${errors}" th:text="${error}"></li>
+        </ul>
+    </div>
+    <form th:action="@{/admin/tours/{tourId}(tourId=${tour.id})}" th:method="put">
+        <label>
+            Tour name:<br>
+            <input type="text" name="name" th:value="${updateTourPayload != null ? updateTourPayload.name : tour.name}">
+            <br>
+        </label>
+        <label>
+            Tour Description:<br>
+            <input type="text" name="description" th:value="${updateTourPayload != null ? updateTourPayload.description : tour.description}">
+            <br>
+        </label>
+        <label>
+            Start date:<br>
+            <input type="datetime-local" name="startDate" th:value="${updateTourPayload != null ? updateTourPayload.startDate : tour.startDate}">
+            <br>
+        </label>
+        <label>
+            End date:<br>
+            <input type="datetime-local" name="endDate" th:value="${updateTourPayload != null ? updateTourPayload.endDate : tour.endDate}">
+            <br>
+        </label>
+        <label>
+            Price:<br>
+            <input type="text" name="price" th:value="${updateTourPayload != null ? updateTourPayload.price : tour.price}">
+            <br>
+        </label>
+        <br>
+        <button type="submit">Edit</button>
+    </form>
+</body>
+</html>

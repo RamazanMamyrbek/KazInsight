@@ -27,6 +27,11 @@ public class CommonControllerAdvice {
     public String handleFileNotSupportedException(FileNotSupportedException exception, Model model, Locale locale) {
         model.addAttribute("errors", messageSource.getMessage(exception.getMessage(), new Object[0],
                 exception.getMessage(), locale));
-        return "admin/places/new_place";
+        if(exception.getMessage().startsWith("places")) {
+            return "admin/places/new_place";
+        } else {
+            return "admin/tours/new_tour";
+        }
+
     }
 }
