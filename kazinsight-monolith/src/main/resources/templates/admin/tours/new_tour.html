@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Tour</title>
+</head>
+<body>
+    <a th:href="@{/admin/tours}">&larr; Back</a>
+    <div th:if="${errors}">
+      <h2>Errors while creating tour</h2>
+      <ul>
+        <li th:each="error: ${errors}" th:text="${error}"></li>
+      </ul>
+    </div>
+    <form th:action="@{/admin/tours}" method="post"enctype="multipart/form-data">
+      <label>
+        Tour name:<br>
+        <input type="text" name="name" th:value="${newTourPayload?.name}">
+        <br>
+      </label>
+      <label>
+        Tour Description:<br>
+        <input type="text" name="description" th:value="${newTourPayload?.description}">
+        <br>
+      </label>
+      <label>
+        Start Date:<br>
+        <input type="datetime-local" name="startDate" th:value="${newTourPayload?.startDate}">
+        <br>
+      </label>
+      <label>
+        End Date:<br>
+        <input type="datetime-local" name="endDate" th:value="${newTourPayload?.endDate}">
+        <br>
+      </label>
+      <label>
+        Price:<br>
+        <input type="text" name="price" th:value="${newTourPayload?.price}">
+        <br>
+      </label>
+      <label>
+        Images:<br>
+        <input type="file" name="images" multiple>
+        <br>
+      </label>
+      <br>
+      <button type="submit">Create</button>
+    </form>
+</body>
+</html>

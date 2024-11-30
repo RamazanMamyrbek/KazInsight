@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Tours</title>
+</head>
+<body>
+    <form th:action="@{/admin/tours}" method="get">
+        <input type="text" name="filter" th:value="${filter}">
+        <button type="submit">Search</button>
+    </form>
+    <a th:href="@{/admin/tours/create}">Create tour</a>
+    <br>
+    <h1>Tours</h1>
+    <div th:each="tour: ${tours}">
+        <a th:text="${tour.name}" th:href="@{/admin/tours/{tourId}(tourId=${tour.id})}" ></a>
+    </div>
+</body>
+</html>

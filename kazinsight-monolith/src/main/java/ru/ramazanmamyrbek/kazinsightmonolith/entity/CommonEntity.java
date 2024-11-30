@@ -1,8 +1,11 @@
 package ru.ramazanmamyrbek.kazinsightmonolith.entity;
 
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 
@@ -14,4 +17,15 @@ public class CommonEntity {
     private String createdBy;
     private LocalDateTime updatedAt;
     private String updatedBy;
+    @PrePersist
+    private void prePersist() {
+        setCreatedAt(LocalDateTime.now());
+        setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        setUpdatedAt(LocalDateTime.now());
+        setUpdatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
 }

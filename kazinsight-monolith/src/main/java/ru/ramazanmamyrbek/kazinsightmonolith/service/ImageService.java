@@ -8,6 +8,6 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ImageService {
-    List<Image> saveListImage(List<MultipartFile> images, Place place) throws IOException;
+    <T> List<Image> saveListImage(List<MultipartFile> images, T place) throws IOException;
     void saveListImageToDB(List<Image> images);
 }
