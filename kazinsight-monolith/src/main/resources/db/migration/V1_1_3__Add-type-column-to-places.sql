@@ -1,0 +1,1 @@
+ALTER TABLE places ADD COLUMN type varchar(255) check (type in ('INDOOR','OUTDOOR','NATURE'))

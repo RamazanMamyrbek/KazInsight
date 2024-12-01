@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ru.ramazanmamyrbek.kazinsightmonolith.entity.enums.PlaceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,10 @@ public class Place extends CommonEntity{
 
     @Column(name = "location")
     private String location;
+
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private PlaceType type;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")

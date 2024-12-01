@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${tour.name}"></title>
+</head>
+<body>
+    <a th:href="@{/tours}">&larr; Back</a>
+    <h1 th:text="${tour.name}"></h1>
+    <ul>
+        <li><strong>Name</strong>: <span th:text="${tour.name}"></span></li>
+        <li><strong>Description</strong>: <span th:text="${tour.description}"></span></li>
+        <li><strong>Start Date</strong>: <span th:text="${tour.startDate.toString()}"></span></li>
+        <li><strong>End Date</strong>: <span th:text="${tour.endDate.toString()}"></span></li>
+        <li><strong>Price</strong>: <span th:text="${tour.price}"></span></li>
+        <div th:each="image: ${tour.images}" class="display: flex; justify-content: space-between">
+            <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
+        </div>
+    </ul>
+</body>
+</html>
