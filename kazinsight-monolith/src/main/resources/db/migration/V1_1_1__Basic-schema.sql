@@ -71,7 +71,6 @@ CREATE TABLE users (
                        first_name VARCHAR(255),
                        last_name VARCHAR(255),
                        password VARCHAR(255),
-                       role VARCHAR(255) CHECK (role IN ('ADMIN', 'USER')),
                        updated_by VARCHAR(255)
 );
 
