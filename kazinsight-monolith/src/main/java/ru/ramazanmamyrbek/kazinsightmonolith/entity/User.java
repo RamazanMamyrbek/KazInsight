@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(exclude = {"favoritePlaces", "tours"})
-@EqualsAndHashCode(callSuper = false, exclude = {"favoritePlaces", "tours"})
+@EqualsAndHashCode(callSuper = false, exclude = {"favoritePlaces", "tours","roles"})
 public class User extends CommonEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +32,8 @@ public class User extends CommonEntity{
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    private List<Role> roles = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

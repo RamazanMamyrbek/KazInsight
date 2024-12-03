@@ -2,12 +2,12 @@ package ru.ramazanmamyrbek.kazinsightmonolith.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.ramazanmamyrbek.kazinsightmonolith.exception.FileNotSupportedException;
 
-import java.nio.file.FileAlreadyExistsException;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 
@@ -32,6 +32,13 @@ public class CommonControllerAdvice {
         } else {
             return "admin/tours/new_tour";
         }
+    }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public String handleUserNotFoundException(UsernameNotFoundException exception, Model model, Locale locale) {
+        model.addAttribute("error", messageSource.getMessage(exception.getMessage(),
+                new Object[0],
+                locale));
+        return "errors/404";
     }
 }
