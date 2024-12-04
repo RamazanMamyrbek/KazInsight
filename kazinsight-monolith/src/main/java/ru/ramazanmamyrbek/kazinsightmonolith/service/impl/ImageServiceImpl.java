@@ -51,18 +51,21 @@ public class ImageServiceImpl implements ImageService {
             if(entityType instanceof Place) {
                 imageEntities.add(Image.builder()
                         .link(imageLink)
+                        .name(fileName)
                         .place((Place) entityType)
                         .tour(null)
                         .build());
             } else if (entityType instanceof Tour) {
                 imageEntities.add(Image.builder()
-                                .link(imageLink)
-                                .place(null)
-                                .tour((Tour) entityType)
+                        .link(imageLink)
+                        .name(fileName)
+                        .place(null)
+                        .tour((Tour) entityType)
                         .build());
             } else {
                 imageEntities.add(Image.builder()
                         .link(imageLink)
+                        .name(fileName)
                         .place(null)
                         .tour(null)
                         .build());
@@ -76,5 +79,8 @@ public class ImageServiceImpl implements ImageService {
         imageRepository.saveAll(images);
     }
 
-
+    @Override
+    public void deleteById(Long imageId) {
+        imageRepository.deleteById(imageId);
+    }
 }

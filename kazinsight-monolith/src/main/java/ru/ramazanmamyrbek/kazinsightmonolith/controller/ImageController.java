@@ -25,10 +25,10 @@ public class ImageController {
         try {
             Path filePath = Paths.get("images").resolve(fileName);
             Resource resource = new UrlResource(filePath.toUri());
-            if(resource.exists() && resource.isReadable()) {
+            if (resource.exists() && resource.isReadable()) {
                 return ResponseEntity
                         .ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + resource.getFilename() + "\"")
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                         .body(resource);
             } else {
                 throw new NoSuchElementException("files.errors.file_is_not_found");

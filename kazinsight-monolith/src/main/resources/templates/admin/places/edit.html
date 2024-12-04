@@ -13,34 +13,45 @@
         <li th:each="error: ${errors}" th:text="${error}"></li>
     </ul>
 </div>
-<form th:action="@{/admin/places/{placeId}(placeId=${place.id})}" method="post">
-    <label>
-        Place name:<br>
-        <input type="text" name="name" th:value="${payload != null ? payload.name : place.name}">
+    <form th:action="@{/admin/places/{placeId}(placeId=${place.id})}" method="post">
+        <label>
+            Place name:<br>
+            <input type="text" name="name" th:value="${payload != null ? payload.name : place.name}">
+            <br>
+        </label>
+        <label>
+            Description:<br>
+            <input type="text" name="description" th:value="${payload != null ? payload.description : place.description}">
+            <br>
+        </label>
+        <label>
+            Longitude:<br>
+            <input type="text" name="longitude" th:value="${payload != null ? payload.longitude : place.longitude}">
+            <br>
+        </label>
+        <label>
+            Latitude:<br>
+            <input type="text" name="latitude" th:value="${payload != null ? payload.latitude : place.latitude}">
+            <br>
+        </label>
+        <label>
+            Location:<br>
+            <input type="text" name="location" th:value="${payload != null ? payload.location : place.location}">
+            <br>
+        </label>
         <br>
-    </label>
-    <label>
-        Description:<br>
-        <input type="text" name="description" th:value="${payload != null ? payload.description : place.description}">
-        <br>
-    </label>
-    <label>
-        Longitude:<br>
-        <input type="text" name="longitude" th:value="${payload != null ? payload.longitude : place.longitude}">
-        <br>
-    </label>
-    <label>
-        Latitude:<br>
-        <input type="text" name="latitude" th:value="${payload != null ? payload.latitude : place.latitude}">
-        <br>
-    </label>
-    <label>
-        Location:<br>
-        <input type="text" name="location" th:value="${payload != null ? payload.location : place.location}">
-        <br>
-    </label>
-    <br>
-    <button type="submit">Update</button>
-</form>
+        <button type="submit">Update</button>
+    </form>
+
+    <div th:each="image: ${place.images}" th:id="${'img' + image.id}" >
+        <form th:action="@{/admin/places/{placeId}/delete-image/{imageId}(placeId=${place.id},imageId=${image.id})}" method="post">
+            <button type="submit">Remove Image</button>
+        </form>
+        <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
+    </div>
+    <form th:action="@{/admin/places/{placeId}/add-image(placeId=${place.id})}" method="post" enctype="multipart/form-data">
+        <input type="file" name="images" multiple>
+        <button type="submit">Add image</button>
+    </form>
 </body>
 </html>

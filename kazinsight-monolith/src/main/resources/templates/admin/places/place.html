@@ -14,6 +14,9 @@
     <li><strong>Location</strong>: <span th:text="${place.location}"></span></li>
     <li><strong>Longitude</strong>: <span th:text="${place.longitude}"></span></li>
     <li><strong>Latitude</strong>: <span th:text="${place.latitude}"></span></li>
+    <div th:each="image: ${place.images}" class="display: flex; justify-content: space-between">
+        <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
+    </div>
 </ul>
 <a th:href="@{/admin/places/{placeId}/edit(placeId=${place.id})}" th:text="'Edit'"></a>
 <form th:action="@{/admin/places/{placeId}/delete(placeId=${place.id})}" method="post">

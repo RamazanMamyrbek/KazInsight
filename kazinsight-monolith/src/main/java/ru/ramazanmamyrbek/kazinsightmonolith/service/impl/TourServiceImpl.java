@@ -3,6 +3,7 @@ package ru.ramazanmamyrbek.kazinsightmonolith.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewTourPayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.UpdateTourPayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Image;
@@ -56,5 +57,14 @@ public class TourServiceImpl implements TourService {
     @Transactional
     public void deleteTour(Long tourId) {
         tourRepository.deleteById(tourId);
+    }
+
+    @Override
+    @Transactional
+    public void addImageForTour(Long tourId, List<MultipartFile> images) throws IOException {
+        Tour tour = findTour(tourId);
+        List<Image> imageList = imageService.saveListImage(images, tour);
+        tour.setImages(imageList);
+        tourRepository.save(tour);
     }
 }

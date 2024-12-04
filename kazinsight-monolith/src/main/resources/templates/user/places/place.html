@@ -12,6 +12,9 @@
     <li><strong>Name</strong>: <span th:text="${place.name}"></span></li>
     <li><strong>Description</strong>: <span th:text="${place.description}"></span></li>
     <li><strong>Location</strong>: <span th:text="${place.location}"></span></li>
+    <div th:each="image: ${place.images}" class="display: flex; justify-content: space-between">
+        <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
+    </div>
 </ul>
 </body>
 </html>

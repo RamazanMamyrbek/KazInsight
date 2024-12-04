@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile</title>
+</head>
+<body>
+<h1>Profile</h1>
+<ul>
+    <li><img height="100px" width="100px" th:src="${user.image!=null ? user.image.link : '#'}" alt="#"></li>
+    <li><strong>Name</strong>: <span th:text="${user.firstName}"></span></li>
+    <li><strong>Surname</strong>: <span th:text="${user.lastName}"></span></li>
+    <li><strong>Email</strong>: <span th:text="${user.email}"></span></li>
+    <li><strong>Balance</strong>: <span th:text="${user.balance}"></span></li>
+</ul>
+</body>
+</html>

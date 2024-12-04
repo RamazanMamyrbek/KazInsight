@@ -40,7 +40,20 @@
             <br>
         </label>
         <br>
+        <br>
         <button type="submit">Edit</button>
     </form>
+
+    <div th:each="image: ${tour.images}" class="display: flex; justify-content: space-between" th:id="${'img' + image.id}" >
+        <form th:action="@{/admin/tours/{tourId}/delete-image/{imageId}(tourId=${tour.id},imageId=${image.id})}" method="post">
+            <button type="submit">Remove Image</button>
+        </form>
+        <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
+    </div>
+    <form th:action="@{/admin/tours/{tourId}/add-image(tourId=${tour.id})}" method="post" enctype="multipart/form-data">
+        <input type="file" name="images" multiple>
+        <button type="submit">Add image</button>
+    </form>
+
 </body>
 </html>

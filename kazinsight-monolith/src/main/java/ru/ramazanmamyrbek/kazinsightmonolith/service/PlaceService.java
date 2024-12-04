@@ -1,5 +1,6 @@
 package ru.ramazanmamyrbek.kazinsightmonolith.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewPlacePayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.UpdatePlacePayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Place;
@@ -17,4 +18,6 @@ public interface PlaceService {
     void updatePlace(Long placeId, UpdatePlacePayload payload);
 
     void deletePlace(Long placeId);
+
+    void addImageForPlace(Long placeId, List<MultipartFile> images) throws IOException;
 }

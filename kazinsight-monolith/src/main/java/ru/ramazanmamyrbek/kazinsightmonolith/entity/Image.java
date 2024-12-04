@@ -19,6 +19,8 @@ public class Image {
 
     private String link;
 
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "place_id")
     private Place place;

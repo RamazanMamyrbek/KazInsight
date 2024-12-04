@@ -7,18 +7,22 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewTourPayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.UpdateTourPayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Tour;
+import ru.ramazanmamyrbek.kazinsightmonolith.service.ImageService;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.TourService;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/tours")
 public class AdminToursController {
     private final TourService tourService;
+    private final ImageService imageService;
 
     @GetMapping
     public String showAllToursPage(
@@ -84,5 +88,17 @@ public class AdminToursController {
     public String deleteTour(@PathVariable Long tourId) {
         tourService.deleteTour(tourId);
         return "redirect:/admin/tours";
+    }
+
+    @PostMapping("/{tourId}/add-image")
+    public String addImage(@PathVariable("tourId") Long tourId, @RequestParam("images") List<MultipartFile> images) throws IOException {
+        tourService.addImageForTour(tourId, images);
+        return "redirect:/admin/tours/%d/edit".formatted(tourId);
+    }
+
+    @PostMapping("/{tourId}/delete-image/{imageId}")
+    public String deleteImage(@PathVariable("tourId") Long tourId, @PathVariable("imageId") Long imageId) {
+        imageService.deleteById(imageId);
+        return "redirect:/admin/tours/%d/edit".formatted(tourId);
     }
 }

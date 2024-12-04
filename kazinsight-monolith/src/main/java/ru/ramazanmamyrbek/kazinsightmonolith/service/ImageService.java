@@ -10,4 +10,6 @@ import java.util.List;
 public interface ImageService {
     <T> List<Image> saveListImage(List<MultipartFile> images, T place) throws IOException;
     void saveListImageToDB(List<Image> images);
+
+    void deleteById(Long imageId);
 }

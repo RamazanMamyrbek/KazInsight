@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewUserPayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.UserService;
 
+import java.security.Principal;
+
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -37,5 +39,11 @@ public class UserController {
         }
         userService.saveUser(newUserPayload);
         return "redirect:/home";
+    }
+
+    @GetMapping("/users/profile")
+    public String profilePage(Principal principal, Model model) {
+        model.addAttribute("user", userService.getUserByEmail(principal.getName()));
+        return "user/profile/profile";
     }
 }

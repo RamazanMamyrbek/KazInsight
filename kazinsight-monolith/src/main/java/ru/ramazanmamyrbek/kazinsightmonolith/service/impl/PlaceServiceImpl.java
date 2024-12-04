@@ -3,6 +3,7 @@ package ru.ramazanmamyrbek.kazinsightmonolith.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewPlacePayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.UpdatePlacePayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Image;
@@ -62,8 +63,18 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
+    @Transactional
     public void deletePlace(Long placeId) {
         Place place = findPlace(placeId);
         placeRepository.delete(place);
+    }
+
+    @Override
+    @Transactional
+    public void addImageForPlace(Long placeId, List<MultipartFile> images) throws IOException {
+        Place place = findPlace(placeId);
+        List<Image> imageList = imageService.saveListImage(images, place);
+        place.setImages(imageList);
+        placeRepository.save(place);
     }
 }

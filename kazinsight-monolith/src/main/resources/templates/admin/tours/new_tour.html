@@ -13,7 +13,7 @@
         <li th:each="error: ${errors}" th:text="${error}"></li>
       </ul>
     </div>
-    <form th:action="@{/admin/tours}" method="post"enctype="multipart/form-data">
+    <form th:action="@{/admin/tours}" method="post" enctype="multipart/form-data">
       <label>
         Tour name:<br>
         <input type="text" name="name" th:value="${newTourPayload?.name}">
