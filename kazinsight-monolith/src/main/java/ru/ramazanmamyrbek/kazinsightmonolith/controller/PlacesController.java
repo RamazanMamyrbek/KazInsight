@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Place;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.PlaceService;
+import ru.ramazanmamyrbek.kazinsightmonolith.service.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -17,6 +19,7 @@ import java.util.List;
 @RequestMapping("/places")
 public class PlacesController {
     private final PlaceService placeService;
+    private final UserService userService;
 
     @GetMapping
     public String getAllPlaces(Model model,
@@ -28,8 +31,10 @@ public class PlacesController {
     }
 
     @GetMapping("/{placeId}")
-    public String getPlacePage(@PathVariable("placeId") Long placeId, Model model) {
+    public String getPlacePage(@PathVariable("placeId") Long placeId, Model model,
+                               Principal principal) {
         Place place = placeService.findPlace(placeId);
+        model.addAttribute("user", userService.getUserByEmail(principal.getName()));
         model.addAttribute(place);
         return "user/places/place";
     }

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.ramazanmamyrbek.kazinsightmonolith.exception.FileNotSupportedException;
+import ru.ramazanmamyrbek.kazinsightmonolith.exception.UserNotFoundException;
 
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -36,6 +37,14 @@ public class CommonControllerAdvice {
 
     @ExceptionHandler(UsernameNotFoundException.class)
     public String handleUserNotFoundException(UsernameNotFoundException exception, Model model, Locale locale) {
+        model.addAttribute("error", messageSource.getMessage(exception.getMessage(),
+                new Object[0],
+                locale));
+        return "errors/404";
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public String handleUserNotFoundException(UserNotFoundException exception, Model model, Locale locale) {
         model.addAttribute("error", messageSource.getMessage(exception.getMessage(),
                 new Object[0],
                 locale));

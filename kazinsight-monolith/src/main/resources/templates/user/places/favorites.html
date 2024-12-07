@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Favorites</title>
+</head>
+<body>
+    <h1>Places</h1>
+    <div>
+        <div th:each="place : ${favorites}">
+            <a th:text="${place.name}" th:href="@{/places/{placeId}(placeId=${place.id})}"></a>
+        </div>
+    </div>
+</body>
+</html>

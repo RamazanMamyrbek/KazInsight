@@ -20,4 +20,6 @@ public interface PlaceService {
     void deletePlace(Long placeId);
 
     void addImageForPlace(Long placeId, List<MultipartFile> images) throws IOException;
+
+    Place savePlace(Place place);
 }

@@ -7,12 +7,34 @@
 </head>
 <body>
 <h1>Profile</h1>
-<ul>
-    <li><img height="100px" width="100px" th:src="${user.image!=null ? user.image.link : '#'}" alt="#"></li>
-    <li><strong>Name</strong>: <span th:text="${user.firstName}"></span></li>
-    <li><strong>Surname</strong>: <span th:text="${user.lastName}"></span></li>
-    <li><strong>Email</strong>: <span th:text="${user.email}"></span></li>
-    <li><strong>Balance</strong>: <span th:text="${user.balance}"></span></li>
-</ul>
+    <ul>
+        <li><img height="100px" width="100px" th:src="${user.image!=null ? user.image.link : '#'}" alt="#"></li>
+        <li><strong>Name</strong>: <span th:text="${user.firstName}"></span></li>
+        <li><strong>Surname</strong>: <span th:text="${user.lastName}"></span></li>
+        <li><strong>Email</strong>: <span th:text="${user.email}"></span></li>
+        <li><strong>Balance</strong>: <span th:text="${user.balance}"></span></li>
+        <li><strong>Favorites</strong>: <a th:href="@{/users/{userId}/favorites(userId=${user.id})}">Favorites</a></li>
+    </ul>
+    <form th:action="@{/users/{userId}/balance/replenish(userId=${user.id})}"
+        th:method="patch"
+    >
+        <label>
+            Replenish balance:
+            <br>
+            <input type="number" name="value">
+        </label>
+        <br>
+        <button type="submit">Replenish</button>
+    </form>
+    <br>
+    <form th:action="@{/users/{userId}/balance/reset(userId=${user.id})}"
+          th:method="patch"
+    >
+        <label for="resetBtn">
+            Reset balance:
+        </label>
+        <br>
+        <button type="submit" id="resetBtn">Reset</button>
+    </form>
 </body>
 </html>

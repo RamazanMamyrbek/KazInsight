@@ -6,15 +6,32 @@
     <title>[[${place.name}]]</title>
 </head>
 <body>
-<a th:href="@{/places}">&larr; Back</a>
-<h1 th:text="${place.name}"></h1>
-<ul>
-    <li><strong>Name</strong>: <span th:text="${place.name}"></span></li>
-    <li><strong>Description</strong>: <span th:text="${place.description}"></span></li>
-    <li><strong>Location</strong>: <span th:text="${place.location}"></span></li>
-    <div th:each="image: ${place.images}" class="display: flex; justify-content: space-between">
-        <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
+    <a th:href="@{/places}">&larr; Back</a>
+    <h1 th:text="${place.name}"></h1>
+    <ul>
+        <li><strong>Name</strong>: <span th:text="${place.name}"></span></li>
+        <li><strong>Description</strong>: <span th:text="${place.description}"></span></li>
+        <li><strong>Location</strong>: <span th:text="${place.location}"></span></li>
+        <div th:each="image: ${place.images}" class="display: flex; justify-content: space-between">
+            <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
+        </div>
+    </ul>
+    <div th:if="${!place.favoriteUsers.contains(user)}">
+        <form th:action="@{/users/favorites/{placeId}/add(placeId=${place.id})}"
+              th:method="post">
+            <label for="addToFvBtn">Add to favorites</label>
+            <button type="submit" id="addToFvBtn">Remove</button>
+        </form>
     </div>
-</ul>
+    <div>
+        <div th:if="${place.favoriteUsers.contains(user)}">
+            <form th:action="@{/users/favorites/{placeId}/remove(placeId=${place.id})}"
+                  th:method="delete">
+                <label for="removeFromFvBtn">Remove from favorites</label>
+                <button type="submit" id="removeFromFvBtn">Add</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>

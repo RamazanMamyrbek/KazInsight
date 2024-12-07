@@ -77,4 +77,10 @@ public class PlaceServiceImpl implements PlaceService {
         place.setImages(imageList);
         placeRepository.save(place);
     }
+
+    @Override
+    @Transactional
+    public Place savePlace(Place place) {
+        return placeRepository.save(place);
+    }
 }

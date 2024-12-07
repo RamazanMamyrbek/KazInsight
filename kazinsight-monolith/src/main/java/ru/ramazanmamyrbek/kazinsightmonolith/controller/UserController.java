@@ -6,13 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewUserPayload;
+import ru.ramazanmamyrbek.kazinsightmonolith.entity.Place;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.UserService;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,5 +45,41 @@ public class UserController {
     public String profilePage(Principal principal, Model model) {
         model.addAttribute("user", userService.getUserByEmail(principal.getName()));
         return "user/profile/profile";
+    }
+
+    @PatchMapping("/users/{userId}/balance/replenish")
+    public String replenishBalance(@PathVariable Long userId,
+                                @RequestParam Double value,
+                                Model model) {
+        userService.replenishBalance(userId, value);
+        return "redirect:/users/profile";
+    }
+
+    @PatchMapping("/users/{userId}/balance/reset")
+    public String resetBalance(@PathVariable Long userId,
+                                Model model) {
+        userService.resetBalance(userId);
+        return "redirect:/users/profile";
+    }
+
+    @GetMapping("/users/{userId}/favorites")
+    public String getFavorites(@PathVariable Long userId,
+                               Model model) {
+        List<Place> favorites = userService.getFavorites(userId);
+        model.addAttribute("favorites", favorites);
+        return "user/places/favorites";
+    }
+
+    @PostMapping("/users/favorites/{placeId}/add")
+    public String addToFavorites(@PathVariable Long placeId,
+                                 Principal principal) {
+        userService.addPlaceToFavorites(principal.getName(),placeId);
+        return "redirect:/places/%d".formatted(placeId);
+    }
+    @DeleteMapping("/users/favorites/{placeId}/remove")
+    public String removeFromFavorites(@PathVariable Long placeId,
+                                      Principal principal) {
+        userService.removePlaceFromFavorites(principal.getName(), placeId);
+        return "redirect:/places/%d".formatted(placeId);
     }
 }
