@@ -20,7 +20,7 @@
         <form th:action="@{/users/favorites/{placeId}/add(placeId=${place.id})}"
               th:method="post">
             <label for="addToFvBtn">Add to favorites</label>
-            <button type="submit" id="addToFvBtn">Remove</button>
+            <button type="submit" id="addToFvBtn">Add</button>
         </form>
     </div>
     <div>
@@ -28,7 +28,7 @@
             <form th:action="@{/users/favorites/{placeId}/remove(placeId=${place.id})}"
                   th:method="delete">
                 <label for="removeFromFvBtn">Remove from favorites</label>
-                <button type="submit" id="removeFromFvBtn">Add</button>
+                <button type="submit" id="removeFromFvBtn">Remove</button>
             </form>
         </div>
     </div>

@@ -67,4 +67,10 @@ public class TourServiceImpl implements TourService {
         tour.setImages(imageList);
         tourRepository.save(tour);
     }
+
+    @Override
+    @Transactional
+    public Tour saveTour(Tour tour) {
+        return tourRepository.save(tour);
+    }
 }

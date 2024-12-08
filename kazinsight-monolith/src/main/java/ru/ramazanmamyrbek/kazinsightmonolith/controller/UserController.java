@@ -9,6 +9,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewUserPayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Place;
+import ru.ramazanmamyrbek.kazinsightmonolith.entity.Tour;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.UserService;
 
 import java.security.Principal;
@@ -81,5 +82,25 @@ public class UserController {
                                       Principal principal) {
         userService.removePlaceFromFavorites(principal.getName(), placeId);
         return "redirect:/places/%d".formatted(placeId);
+    }
+
+    @GetMapping("/users/{userId}/tours")
+    public String getTours(@PathVariable Long userId,
+                               Model model) {
+        List<Tour> tours = userService.getTours(userId);
+        model.addAttribute("tours", tours);
+        return "user/tours/user-tours";
+    }
+    @PostMapping("/users/tours/{tourId}/add")
+    public String addToMyTours(@PathVariable Long tourId,
+                                 Principal principal) {
+        userService.addTourToMyTours(principal.getName(),tourId);
+        return "redirect:/tours/%d".formatted(tourId);
+    }
+    @DeleteMapping("/users/tours/{tourId}/remove")
+    public String removeFromMyTours(@PathVariable Long tourId,
+                                      Principal principal) {
+        userService.removeTourFromMyTours(principal.getName(), tourId);
+        return "redirect:/tours/%d".formatted(tourId);
     }
 }

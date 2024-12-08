@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.ramazanmamyrbek.kazinsightmonolith.exception.BalanceNotEnoughException;
 import ru.ramazanmamyrbek.kazinsightmonolith.exception.FileNotSupportedException;
 import ru.ramazanmamyrbek.kazinsightmonolith.exception.UserNotFoundException;
 
@@ -48,6 +50,16 @@ public class CommonControllerAdvice {
         model.addAttribute("error", messageSource.getMessage(exception.getMessage(),
                 new Object[0],
                 locale));
-        return "errors/404";
+        return "user/tours/tour";
+    }
+
+    @ExceptionHandler(BalanceNotEnoughException.class)
+    public String handleBalanceNotEnoughException(BalanceNotEnoughException exception,  Locale locale,
+        RedirectAttributes redirectAttributes) {
+            String error = messageSource.getMessage(exception.getMessage(),
+                    new Object[0],
+                    locale);
+            redirectAttributes.addFlashAttribute("error", error);
+            return "redirect:/tours/%d".formatted(exception.getTourId());
     }
 }

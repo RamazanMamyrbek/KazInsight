@@ -20,4 +20,6 @@ public interface TourService {
     void deleteTour(Long tourId);
 
     void addImageForTour(Long tourId, List<MultipartFile> images) throws IOException;
+
+    Tour saveTour(Tour tour);
 }

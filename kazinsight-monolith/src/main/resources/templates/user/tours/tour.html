@@ -18,5 +18,25 @@
             <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
         </div>
     </ul>
+
+    <div th:if="${error}">
+        <p class="color:red" th:text="${error}"></p>
+    </div>
+    <div th:if="${!tour.participants.contains(user)}">
+        <form th:action="@{/users/tours/{tourId}/add(tourId=${tour.id})}"
+              th:method="post">
+            <label for="addToFvBtn">Add to my tours</label>
+            <button type="submit" id="addToFvBtn">Add</button>
+        </form>
+    </div>
+    <div>
+        <div th:if="${tour.participants.contains(user)}">
+            <form th:action="@{/users/tours/{tourId}/remove(tourId=${tour.id})}"
+                  th:method="delete">
+                <label for="removeFromFvBtn">Remove from my tours</label>
+                <button type="submit" id="removeFromFvBtn">Remove</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

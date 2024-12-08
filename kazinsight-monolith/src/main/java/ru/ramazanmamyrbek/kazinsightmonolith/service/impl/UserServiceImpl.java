@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewUserPayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Place;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Role;
+import ru.ramazanmamyrbek.kazinsightmonolith.entity.Tour;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.User;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.enums.RoleName;
+import ru.ramazanmamyrbek.kazinsightmonolith.exception.BalanceNotEnoughException;
 import ru.ramazanmamyrbek.kazinsightmonolith.exception.UserNotFoundException;
 import ru.ramazanmamyrbek.kazinsightmonolith.repository.UserRepository;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.PlaceService;
+import ru.ramazanmamyrbek.kazinsightmonolith.service.TourService;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.UserService;
 import ru.ramazanmamyrbek.mapper.UserMapper;
 
@@ -25,6 +28,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final PlaceService placeService;
+    private final TourService tourService;
     @Override
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("users.errors.not_found"));
@@ -88,5 +92,36 @@ public class UserServiceImpl implements UserService {
         place.getFavoriteUsers().remove(user);
         userRepository.save(user);
         placeService.savePlace(place);
+    }
+
+    @Override
+    public List<Tour> getTours(Long userId) {
+        return getUserById(userId).getTours();
+    }
+
+    @Override
+    @Transactional
+    public void addTourToMyTours(String email, Long tourId) {
+        User user = getUserByEmail(email);
+        Tour tour = tourService.findTour(tourId);
+        if(user.getBalance() < tour.getPrice()) {
+            throw new BalanceNotEnoughException("users.errors.balance_not_enough", tourId);
+        }
+        user.setBalance(user.getBalance() - tour.getPrice());
+        user.getTours().add(tour);
+        tour.getParticipants().add(user);
+        userRepository.save(user);
+        tourService.saveTour(tour);
+    }
+
+    @Override
+    @Transactional
+    public void removeTourFromMyTours(String email, Long tourId) {
+        User user = getUserByEmail(email);
+        Tour tour = tourService.findTour(tourId);
+        user.getTours().remove(tour);
+        tour.getParticipants().remove(user);
+        tourService.saveTour(tour);
+        userRepository.save(user);
     }
 }
