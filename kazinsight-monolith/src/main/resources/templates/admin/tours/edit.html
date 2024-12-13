@@ -39,6 +39,11 @@
             <input type="text" name="price" th:value="${updateTourPayload != null ? updateTourPayload.price : tour.price}">
             <br>
         </label>
+        <label>
+            Location:<br>
+            <input type="text" name="location" th:value="${updateTourPayload != null ? updateTourPayload.location : tour.location}">
+            <br>
+        </label>
         <br>
         <br>
         <button type="submit">Edit</button>

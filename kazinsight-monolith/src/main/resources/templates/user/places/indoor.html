@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tours</title>
+    <link rel="stylesheet" th:href="@{/css/indoor.css}">
+</head>
+<body>
+<div th:replace="fragments/general.html :: navbar"></div>
+<main id="content">
+    <div id="header-search-container">
+        <h1 id="main-header-container">Indoor</h1>
+        <form th:action="@{/places/indoor}" method="get">
+            <input th:value="${filter}" id="search-input" name="search" type="text" placeholder="Search">
+            <button id="search-btn">Search</button>
+        </form>
+    </div>
+    <hr id="divider-line">
+    <div id="items">
+        <a th:each="place : ${places}" th:href="@{/places/{placeId}(palceId=${place.id})}" class="item">
+            <img class="item-img" th:src="${place.images.size() > 0 ? place.images.getFirst().link : ''}" alt="">
+            <span class="item-name" th:text="${place.name}">Tour to Big Almaty Lake</span>
+        </a>
+    </div>
+</main>
+
+<script th:src="@{/js/navbar.js}"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to KazInsight</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+</head>
+<body>
+<div th:replace="fragments/general.html :: navbar"></div>
+
+    <main id="content">
+        <div id="tours-section" class="content-section">
+            <h2 class="section-header">Tours</h2>
+            <div class="section-items">
+                <a th:each="tour : ${tours}" th:href="@{/tours/{tourId}(tourId=${tour.id})}">
+                    <div class="section-item">
+                        <img class="section-item-img" th:src="${tour.images.size() > 0 ? tour.images.getFirst().link : ''}" alt="">
+                        <span class="section-item-name" th:text="${tour.name}"></span>
+                    </div>
+                </a>
+                <a th:href="@{/tours}" class="more-btn">
+                    <img src="/imgs/more.png" alt="" class="more-btn-img">
+                </a>
+            </div>
+        </div>
+        <hr class="section-divider">
+
+        <div id="popular-section" class="content-section">
+            <h2 class="section-header">Popular</h2>
+            <div class="section-items">
+                <a th:each="place : ${populars}" th:href="@{/places/{placeId}(placeId=${place.id})}">
+                    <div class="section-item">
+                        <img class="section-item-img" th:src="${place.images.size() > 0 ? place.images.getFirst().link : ''}" alt="">
+                        <span class="section-item-name" th:text="${place.name}">Tour to Big Almaty Lake</span>
+                    </div>
+                </a>
+                <a th:href="@{/places/popular}" class="more-btn">
+                    <img src="/imgs/more.png" alt="" class="more-btn-img">
+                </a>
+            </div>
+        </div>
+        <hr class="section-divider">
+        
+        <div id="nature-section" class="content-section">
+            <h2 class="section-header">Outdoor</h2>
+            <div class="section-items">
+                <a th:each="place : ${outdoors}" th:href="@{/places/{placeId}(placeId=${place.id})}">
+                    <div class="section-item">
+                        <img class="section-item-img" th:src="${place.images.size() > 0 ? place.images.getFirst().link : ''}" alt="">
+                        <span class="section-item-name" th:text="${place.name}">Tour to Big Almaty Lake</span>
+                    </div>
+                </a>
+                <a th:href="@{/places/outdoor}" class="more-btn">
+                    <img src="/imgs/more.png" alt="" class="more-btn-img">
+                </a>
+            </div>
+        </div>
+        <hr class="section-divider">
+
+        <div id="indoor-section" class="content-section">
+            <h2 class="section-header">Indoor</h2>
+            <div class="section-items">
+                <a th:each="place : ${indoors}" th:href="@{/places/{placeId}(placeId=${place.id})}">
+                    <div class="section-item">
+                        <img class="section-item-img" th:src="${place.images.size() > 0 ? place.images.getFirst().link : ''}" alt="">
+                        <span class="section-item-name" th:text="${place.name}">Tour to Big Almaty Lake</span>
+                    </div>
+                </a>
+                <a th:href="@{/places/indoor}" class="more-btn">
+                    <img src="/imgs/more.png" alt="" class="more-btn-img">
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script th:src="@{/js/navbar.js}"></script>
+</body>
+</html>

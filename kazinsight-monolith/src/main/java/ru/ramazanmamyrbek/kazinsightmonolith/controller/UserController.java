@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.ramazanmamyrbek.kazinsightmonolith.controller.payload.NewUserPayload;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Place;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Tour;
+import ru.ramazanmamyrbek.kazinsightmonolith.entity.enums.PlaceType;
+import ru.ramazanmamyrbek.kazinsightmonolith.service.PlaceService;
+import ru.ramazanmamyrbek.kazinsightmonolith.service.TourService;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.UserService;
 
 import java.security.Principal;
@@ -19,6 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final PlaceService placeService;
+    private final TourService tourService;
+    private static final int TOP = 3;
+
     @GetMapping("/home")
     public String homePage() {
         return "user/home";
@@ -66,7 +73,7 @@ public class UserController {
     @GetMapping("/users/{userId}/favorites")
     public String getFavorites(@PathVariable Long userId,
                                Model model) {
-        List<Place> favorites = userService.getFavorites(userId);
+        List<Place> favorites = userService.getFavoritePlaces(userId);
         model.addAttribute("favorites", favorites);
         return "user/places/favorites";
     }
@@ -102,5 +109,45 @@ public class UserController {
                                       Principal principal) {
         userService.removeTourFromMyTours(principal.getName(), tourId);
         return "redirect:/tours/%d".formatted(tourId);
+    }
+
+    @GetMapping("/users/main")
+    public String getMainPage(@RequestParam(name = "city", defaultValue = "Almaty") String city, Model model) {
+        List<Tour> tours = tourService.findTopForCity(city, TOP);
+        model.addAttribute("tours", tours);
+
+        List<Place> populars = placeService.findTopPopularByCity(city, TOP);
+        model.addAttribute("populars", populars);
+
+        List<Place> indoor = placeService.findTopForCityByPlaceType(city, PlaceType.INDOOR, TOP);
+        model.addAttribute("indoors", indoor);
+
+        List<Place> outdoor = placeService.findTopForCityByPlaceType(city, PlaceType.OUTDOOR, TOP);
+        model.addAttribute("outdoors", outdoor);
+        return "user/main";
+    }
+
+    @GetMapping("/users/favourites")
+    public String getFavouritesPlace(@RequestParam(name = "filter", defaultValue = "") String filter,
+                                     @RequestParam(name = "city", defaultValue = "Almaty") String city,
+                                     Principal principal,
+                                     Model model) {
+        List<Tour> tours = tourService.findFavouriteToursByCityAndUsername(city, principal.getName(), filter);
+        List<Place> places = placeService.findFavouriteToursByCityAndUsername(city, principal.getName(), filter);
+
+        model.addAttribute("tours", tours);
+        model.addAttribute("places", places);
+        model.addAttribute("filter", filter);
+
+        return "user/favourites";
+    }
+
+    @GetMapping("/users/my-tours")
+    public String getUserTours(@RequestParam(name = "filter", defaultValue = "") String filter,
+                               Principal principal, Model model) {
+        List<Tour> tours = tourService.findToursAndParticipantName(filter, principal.getName());
+        model.addAttribute("tours", tours);
+        model.addAttribute("filter", filter);
+        return "user/tours/my-tours";
     }
 }

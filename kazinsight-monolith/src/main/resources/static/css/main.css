@@ -1,0 +1,58 @@
+@import url(navbar.css);
+
+#content {
+    padding: 68px 120px 87px;
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    /*background-image: url('/imgs/main-background.png');*/
+}
+
+.content-section .section-header {
+    font-family: 'Acme';
+    font-size: 55px;
+    line-height: 69.63px;
+    color: white;
+    margin-bottom: 42px;
+}
+
+.content-section .section-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content-section .section-items .section-item {
+    display: flex;
+    flex-direction: column;
+    width: 487px;
+}
+
+.content-section .section-items .section-item .section-item-img {
+    width: inherit;
+    height: 242px;
+    border-radius: 10px;
+    transition: .2s;
+}
+
+.content-section .section-items .section-item .section-item-img:hover {
+    box-shadow: 0 0 30px 15px #018177;
+}
+
+.content-section .section-items .section-item .section-item-name {
+    font-family: 'Acme';
+    font-size: 30px;
+    color: white;
+    line-height: 55px;
+}
+
+.more-btn-img {
+    width: 65px;
+    height: 65px;
+}
+
+.section-divider {
+    width: auto;
+    margin-top: 39px;
+    border: 1px solid grey;
+    margin-bottom: 27px;
+}

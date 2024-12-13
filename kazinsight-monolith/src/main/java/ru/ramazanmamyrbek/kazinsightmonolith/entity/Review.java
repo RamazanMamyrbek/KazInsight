@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(callSuper = false, exclude = {"creator", "place"})
+@EqualsAndHashCode(callSuper = false, exclude = {"creator", "place", "tour"})
 public class Review extends CommonEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,8 @@ public class Review extends CommonEntity{
     @ManyToOne
     @JoinColumn(name = "place_id")
     private Place place;
+
+    @ManyToOne
+    @JoinColumn(name = "tour_id")
+    private Tour tour;
 }

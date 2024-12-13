@@ -1,0 +1,1 @@
+ALTER TABLE reviews ADD COLUMN tour_id BIGINT REFERENCES tours(id);

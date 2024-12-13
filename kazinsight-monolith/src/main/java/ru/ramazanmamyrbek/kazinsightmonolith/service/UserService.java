@@ -5,6 +5,7 @@ import ru.ramazanmamyrbek.kazinsightmonolith.entity.Place;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.Tour;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.User;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface UserService {
@@ -18,7 +19,7 @@ public interface UserService {
 
     void resetBalance(Long userId);
 
-    List<Place> getFavorites(Long userId);
+    List<Place> getFavoritePlaces(Long userId);
 
     void addPlaceToFavorites(String name, Long placeId);
 
@@ -29,4 +30,8 @@ public interface UserService {
     void addTourToMyTours(String name, Long tourId);
 
     void removeTourFromMyTours(String name, Long tourId);
+
+    List<Tour> getFavoriteTours(Long id);
+
+    void addTourToFavourites(String name, Long tourId);
 }

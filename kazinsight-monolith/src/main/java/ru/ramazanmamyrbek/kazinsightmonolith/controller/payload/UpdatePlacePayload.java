@@ -1,6 +1,7 @@
 package ru.ramazanmamyrbek.kazinsightmonolith.controller.payload;
 
 import jakarta.validation.constraints.*;
+import ru.ramazanmamyrbek.kazinsightmonolith.entity.enums.PlaceType;
 
 public record UpdatePlacePayload(
         @NotNull(message = "{places.create.errors.title_is_null}")
@@ -22,5 +23,6 @@ public record UpdatePlacePayload(
         @NotNull(message = "{places.create.errors.location_is_null}")
         @NotBlank(message = "{places.create.errors.location_is_blank}")
         @Size(min = 2, max = 200, message = "{places.create.errors.location_size_is_invalid}")
-        String location) {
+        String location,
+        PlaceType type) {
 }

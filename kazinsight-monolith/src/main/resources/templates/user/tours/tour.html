@@ -1,42 +1,116 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${tour.name}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour</title>
+    <link rel="stylesheet" th:href="@{/css/tour.css}">
+    <script src="https://kit.fontawesome.com/7fb7fffe92.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <a th:href="@{/tours}">&larr; Back</a>
-    <h1 th:text="${tour.name}"></h1>
-    <ul>
-        <li><strong>Name</strong>: <span th:text="${tour.name}"></span></li>
-        <li><strong>Description</strong>: <span th:text="${tour.description}"></span></li>
-        <li><strong>Start Date</strong>: <span th:text="${tour.startDate.toString()}"></span></li>
-        <li><strong>End Date</strong>: <span th:text="${tour.endDate.toString()}"></span></li>
-        <li><strong>Price</strong>: <span th:text="${tour.price}"></span></li>
-        <div th:each="image: ${tour.images}" class="display: flex; justify-content: space-between">
-            <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
-        </div>
-    </ul>
+<span class="popup-notification" id="successful-fund" th:if="${successfulTransaction}">
+        You have bought tour successfully!
+</span>
+<span class="popup-notification" id="error-fund" th:if="${errorTransaction}">
+    You don't have enough balance to buy this tour!
+</span>
 
-    <div th:if="${error}">
-        <p class="color:red" th:text="${error}"></p>
-    </div>
-    <div th:if="${!tour.participants.contains(user)}">
-        <form th:action="@{/users/tours/{tourId}/add(tourId=${tour.id})}"
-              th:method="post">
-            <label for="addToFvBtn">Add to my tours</label>
-            <button type="submit" id="addToFvBtn">Add</button>
-        </form>
-    </div>
-    <div>
-        <div th:if="${tour.participants.contains(user)}">
-            <form th:action="@{/users/tours/{tourId}/remove(tourId=${tour.id})}"
-                  th:method="delete">
-                <label for="removeFromFvBtn">Remove from my tours</label>
-                <button type="submit" id="removeFromFvBtn">Remove</button>
+<div th:replace="fragments/general.html :: navbar"></div>
+
+<main id="content-wrapper">
+    <div id="content">
+        <h1 id="header-container" th:text="${tour.name}"></h1>
+        <div id="imgs-container">
+            <img th:each="image : ${tour.getImages().stream().limit(3).toList()}" th:src="${image.link}" alt="" class="tour-img">
+            <img th:src="@{/imgs/more.png}" alt="" class="more-btn-img">
+        </div>
+
+        <hr class="section-divider">
+
+        <h2 id="description-container">Description</h2>
+        <span id="description-text" th:text="${tour.description}"></span>
+
+        <hr class="section-divider">
+
+        <div id="main-info-buy-btn-container">
+            <div id="main-info-wrapper">
+                <h2 id="main-info-container">Main information:</h2>
+                <span class="main-info-attribute" th:text="${'Location' + tour.location}"></span>
+                <span class="main-info-attribute" th:text="${'Date: ' + tour.getNormalDate()}">Date: 12.12.2024</span>
+                <span class="main-info-attribute" th:text="${'Time: ' + tour.getTime()}">Time: 10:00</span>
+                <span class="main-info-attribute" th:text="${'Price: ' + tour.getNormalPrice() + 'tg'}">Price: 5000tg</span>
+                <span class="main-info-attribute" id="tour-rating" th:text="${'Rating' + rating}">Rating: 3.4
+
+                    </span>
+                <form id="add-to-favourite-form" th:action="@{/tours/{tourId}/add-to-favourite(tourId=${tour.id})}" method="post">
+                    <i th:class="${'fa-solid fa-bookmark' + (isFavourite ? ' bookmark-checked' : '')}" id="add-favourite-btn"></i>
+                </form>
+            </div>
+            <form id="buy-btn-container" th:action="@{/tours/{tourId}/buy(tourId=${tour.id})}" method="post">
+                <h3>Buy the Tour!</h3>
+                <button id="buy-btn" type="submit">BUY</button>
             </form>
         </div>
+        <div id="send-review-container">
+            <div id="review-header-container">
+                <h2>Review</h2>
+                <div class="stars-container">
+                    <i class="fa-solid fa-star white-star review-star"></i>
+                    <i class="fa-solid fa-star white-star review-star"></i>
+                    <i class="fa-solid fa-star white-star review-star"></i>
+                    <i class="fa-solid fa-star white-star review-star"></i>
+                    <i class="fa-solid fa-star white-star review-star"></i>
+                </div>
+            </div>
+            <form th:action="@{/tours/{tourId}/add-review(tourId=${tour.id})}" method="post" id="review-input-container">
+                <input type="text" id="review-input" name="text" placeholder="Write your review">
+                <input name="rating" type="hidden" id="rating-value" value="1">
+                <button id="send-review-btn" type="submit">Send</button>
+            </form>
+        </div>
+        <div id="reviews-wrapper">
+            <div th:each="review : ${reviews}" class="user-review">
+                <div class="reviewer-img-container">
+                    <img th:src="@{/imgs/bugs-bunny.png}" alt="" class="reviewer-img">
+                    <span th:text="${review.creator.getFirstName() + ' ' + review.creator.getLastName()}" class="reviewer-name">Bugs Bunny</span>
+                    <div class="stars-container user-stars-container">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+                <span th:text="${review.text}" class="review-text">
+                        Good tour, Boy!
+                    </span>
+            </div>
+        </div>
     </div>
+</main>
+
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/reviews.js}"></script>
+<script th:src="@{/js/favourite.js}"></script>
+<script th:src="@{/js/popup-notifications.js}"></script>
+<script th:inline="javascript">
+    let rating = [[${rating}]]
+    document.getElementById("tour-rating").innerHTML = "Rating: " + rating + "<div id=\"tour-stars-container\" class=\"stars-container\">\n" +
+        "        <i class=\"fa-solid fa-star white-star tour-star\"></i>\n" +
+        "        <i class=\"fa-solid fa-star white-star tour-star\"></i>\n" +
+        "        <i class=\"fa-solid fa-star white-star tour-star\"></i>\n" +
+        "        <i class=\"fa-solid fa-star white-star tour-star\"></i>\n" +
+        "        <i class=\"fa-solid fa-star white-star tour-star\"></i>\n" +
+        "    </div>"
+
+    colorStars(document.getElementsByClassName("tour-star"), rating)
+
+    let userRatings = [[${ratings}]]
+
+    for (let i = 0; i < userRatings.length; i++) {
+        currStars = document.getElementsByClassName("user-stars-container")[i].children
+        colorStars(currStars, userRatings[i])
+    }
+</script>
 </body>
 </html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<<<<<<< Updated upstream
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tours</title>
+</head>
+<body>
+
+    <form th:action="@{/tours}" method="get">
+        <input type="text" name="filter" th:value="${filter}">
+        <button type="submit">Search</button>
+    </form>
+    <br>
+    <h1>Tours</h1>
+    <div>
+        <div th:each="tour : ${tours}">
+            <a th:text="${tour.name}" th:href="@{/tours/{tourId}(tourId=${tour.id})}"></a>
+        </div>
+    </div>
+
+=======
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tours</title>
+    <link rel="stylesheet" href="/static/css/tours.css">
+</head>
+<body>
+    <div id="navbar">
+        <div class="navbar-item-group">
+            <a href="/templates/user/main.html"><img id="logo" src="/imgs/logo.png" alt=""></a>
+            <img id="location-img" src="/imgs/location.png" alt="">
+                <div id="location-container">
+                    <span id="location-text">Almaty</span>
+                    <div id="cities-container">
+                        <ul id="cities-list">
+                            <a href="/templates/user/main.html?city=Almaty">
+                                <li class="city">Almaty</li>
+                            </a>
+                            <a href="/templates/user/main.html?city=Astana">
+                                <li class="city">Astana</li>
+                            </a>
+                            <a href="/templates/user/main.html?city=Karaganda">
+                                <li class="city">Karaganda</li>
+                            </a>
+                            <a href="/templates/user/main.html?city=Taraz">
+                                <li class="city">Taraz</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+        </div>
+
+        <ul id="navigation-menu" class="navbar-item-group">
+            <li class="navigation-menu-item">
+                <a href="/templates/user/tours/tours-rama.html">Tours</a>
+            </li>
+            <li class="navigation-menu-item">
+                <a href="#">Popular</a>
+            </li>
+            <li class="navigation-menu-item">
+                <a href="#">Nature</a>
+            </li>
+            <li class="navigation-menu-item">
+                <a href="#">Indoor</a>
+            </li>
+        </ul>
+
+        <div class="navbar-item-group">
+            <button type="submit" id="logout-btn">LogOut</button>
+            <img id="user-icon-img" src="/imgs/user-icon.png" alt="">
+        </div>
+    </div>
+
+    <main id="content">
+        <h1 id="main-header-container">Tours</h1>
+        <hr id="divider-line">
+        <div id="items">
+            <a href="#" class="item">
+                <img class="item-img" src="/imgs/bal.png" alt="">
+                <span class="item-name">Tour to Big Almaty Lake</span>
+            </a>
+            <a href="#" class="item">
+                <img class="item-img" src="/imgs/bal.png" alt="">
+                <span class="item-name">Tour to Big Almaty Lake</span>
+            </a>
+            <a href="#" class="item">
+                <img class="item-img" src="/imgs/bal.png" alt="">
+                <span class="item-name">Tour to Big Almaty Lake</span>
+            </a>
+            <a href="#" class="item">
+                <img class="item-img" src="/imgs/bal.png" alt="">
+                <span class="item-name">Tour to Big Almaty Lake</span>
+            </a>
+            <a href="#" class="item">
+                <img class="item-img" src="/imgs/bal.png" alt="">
+                <span class="item-name">Tour to Big Almaty Lake</span>
+            </a>
+            <a href="#" class="item">
+                <img class="item-img" src="/imgs/bal.png" alt="">
+                <span class="item-name">Tour to Big Almaty Lake</span>
+            </a>
+            <a href="#" class="item">
+                <img class="item-img" src="/imgs/bal.png" alt="">
+                <span class="item-name">Tour to Big Almaty Lake</span>
+            </a>
+        </div>
+    </main>
+
+    <script src="/static/js/navbar.js"></script>
+>>>>>>> Stashed changes
+</body>
+</html>

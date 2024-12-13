@@ -52,6 +52,15 @@ public class User extends CommonEntity{
             uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "place_id"}))
     private List<Place> favoritePlaces = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "favourite_tours",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tour_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "tour_id"})
+    )
+    private List<Tour> favouriteTours = new ArrayList<>();
+
     @ManyToMany(mappedBy = "participants")
     private List<Tour> tours = new ArrayList<>();
 }

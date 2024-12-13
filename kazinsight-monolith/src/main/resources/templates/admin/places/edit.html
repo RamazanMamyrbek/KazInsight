@@ -39,6 +39,14 @@
             <input type="text" name="location" th:value="${payload != null ? payload.location : place.location}">
             <br>
         </label>
+        <label>
+            Type:<br>
+            <select id="place-type" name="type">
+                <option value="INDOOR">Indoor</option>
+                <option value="OUTDOOR">Outdoor</option>
+            </select>
+            <br>
+        </label>
         <br>
         <button type="submit">Update</button>
     </form>

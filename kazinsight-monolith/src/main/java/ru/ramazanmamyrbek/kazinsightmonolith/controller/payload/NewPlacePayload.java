@@ -2,6 +2,7 @@ package ru.ramazanmamyrbek.kazinsightmonolith.controller.payload;
 
 import jakarta.validation.constraints.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.ramazanmamyrbek.kazinsightmonolith.entity.enums.PlaceType;
 
 import java.util.List;
 
@@ -28,5 +29,6 @@ public record NewPlacePayload(
         @NotBlank(message = "{places.create.errors.location_is_blank}")
         @Size(min = 2, max = 200, message = "{places.create.errors.location_size_is_invalid}")
         String location,
+        PlaceType type,
         List<MultipartFile> images){
 }

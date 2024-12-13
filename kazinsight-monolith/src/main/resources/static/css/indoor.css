@@ -1,0 +1,82 @@
+@import url(navbar.css);
+
+#content {
+    /*background-image: url('/imgs/main-background.png');*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    padding: 68px 120px;
+}
+
+#content #header-search-container {
+    display: flex;
+    margin-bottom: 58px;
+    align-items: center;
+}
+
+#content #header-search-container #main-header-container {
+    font-family: 'Acme';
+    font-size: 85px;
+    line-height: 107px;
+    color: white;
+    margin-right: 400px;
+}
+
+#content #header-search-container #search-input {
+    padding: 10px 0 10px 10px;
+    width: 600px;
+    border-radius: 10px;
+    margin-right: 30px;
+    font-family: 'Acme';
+    font-size: 30px;
+}
+
+#content #header-search-container #search-input:focus {
+    outline: none;
+}
+
+#content #header-search-container #search-btn {
+    cursor: pointer;
+    font-family: 'Acme';
+    font-size: 30px;
+    padding: 10px 25px;
+    border-radius: 10px;
+    color: white;
+    background-color: #018177;
+}
+
+#content #divider-line {
+    border: 1px solid grey;
+    width: inherit;
+    margin-bottom: 45px;
+}
+
+#content #items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 60px;
+    column-gap: 52px;
+}
+
+#content #items .item {
+    display: flex;
+    width: 487px;
+    flex-direction: column;
+}
+
+#content #items .item .item-img {
+    width: inherit;
+    height: 242px;
+    border-radius: 10px;
+    transition: .2s;
+}
+
+#content #items .item .item-img:hover {
+    box-shadow: 0 0 30px 15px #018177;
+}
+
+#content #items .item .item-name {
+    font-family: 'Acme';
+    font-size: 30px;
+    color: white;
+    line-height: 55px;
+}

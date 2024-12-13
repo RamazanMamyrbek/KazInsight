@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favourites</title>
+    <link rel="stylesheet" th:href="@{/css/favourites.css}">
+</head>
+<body>
+<div th:replace="fragments/general.html :: navbar"></div>
+<main id="content">
+    <div class="header-search-container">
+        <h1 class="main-header-container">Favourite Tours</h1>
+        <form th:action="@{/users/favourites}" method="get">
+            <input th:value="${filter}" id="search-input" name="filter" type="text" placeholder="Search">
+            <button id="search-btn">Search</button>
+        </form>
+    </div>
+    <div class="items">
+        <a th:each="tour : ${tours}" th:href="@{/tours/{tourId}(tourId=${tour.id})}" class="item">
+            <img class="item-img" th:src="${tour.images.size() > 0 ? tour.images.getFirst().link : ''}" alt="">
+            <span class="item-name" th:text="${tour.name}">Tour to Big Almaty Lake</span>
+        </a>
+    </div>
+
+    <hr class="divider-line">
+    <div class="header-search-container">
+        <h1 class="main-header-container">Favourite Places</h1>
+    </div>
+    <div class="items">
+        <a th:each="place : ${places}" th:href="@{/places/{placeId}(placeId=${place.id})}" class="item">
+            <img class="item-img" th:src="${place.images.size() > 0 ? place.images.getFirst().link : ''}" alt="">
+            <span class="item-name" th:text="${place.name}">Tour to Big Almaty Lake</span>
+        </a>
+    </div>
+</main>
+
+<script th:src="@{/js/navbar.js}"></script>
+</body>
+</html>

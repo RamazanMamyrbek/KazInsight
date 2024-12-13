@@ -22,4 +22,14 @@ public interface TourService {
     void addImageForTour(Long tourId, List<MultipartFile> images) throws IOException;
 
     Tour saveTour(Tour tour);
+
+    List<Tour> findTopForCity(String city, int top);
+
+    List<Tour> findAllByCity(String filter, String city);
+
+    double computeRating(long id);
+
+    List<Tour> findFavouriteToursByCityAndUsername(String city, String name, String filter);
+
+    List<Tour> findToursAndParticipantName(String filter, String name);
 }

@@ -13,6 +13,7 @@ import ru.ramazanmamyrbek.kazinsightmonolith.entity.User;
 import ru.ramazanmamyrbek.kazinsightmonolith.entity.enums.RoleName;
 import ru.ramazanmamyrbek.kazinsightmonolith.exception.BalanceNotEnoughException;
 import ru.ramazanmamyrbek.kazinsightmonolith.exception.UserNotFoundException;
+import ru.ramazanmamyrbek.kazinsightmonolith.repository.ReviewRepository;
 import ru.ramazanmamyrbek.kazinsightmonolith.repository.UserRepository;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.PlaceService;
 import ru.ramazanmamyrbek.kazinsightmonolith.service.TourService;
@@ -29,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final PlaceService placeService;
     private final TourService tourService;
+    private final ReviewRepository reviewRepository;
+
     @Override
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("users.errors.not_found"));
@@ -67,7 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Place> getFavorites(Long userId) {
+    public List<Place> getFavoritePlaces(Long userId) {
         User user = getUserById(userId);
         return user.getFavoritePlaces();
     }
@@ -123,5 +126,25 @@ public class UserServiceImpl implements UserService {
         tour.getParticipants().remove(user);
         tourService.saveTour(tour);
         userRepository.save(user);
+    }
+
+    @Override
+    public List<Tour> getFavoriteTours(Long id) {
+        return getUserById(id).getFavouriteTours();
+    }
+
+    @Override
+    @Transactional
+    public void addTourToFavourites(String name, Long tourId) {
+        userRepository.findByEmail(name).ifPresent(user -> {
+            Tour tour = tourService.findTour(tourId);
+            if (user.getFavouriteTours().contains(tour)) {
+                user.getFavouriteTours().remove(tour);
+                tour.getFavouriteUsers().add(user);
+            } else {
+                user.getFavouriteTours().add(tour);
+                tour.getFavouriteUsers().remove(user);
+            }
+        });
     }
 }

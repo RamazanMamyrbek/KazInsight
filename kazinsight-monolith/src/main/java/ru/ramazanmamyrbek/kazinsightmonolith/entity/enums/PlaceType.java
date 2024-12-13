@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum PlaceType {
-    INDOOR("Indoor"), OUTDOOR("Outdoor"), NATURE("Nature");
+    INDOOR("Indoor"), OUTDOOR("Outdoor");
     final String name;
     PlaceType(String name) {
         this.name = name;

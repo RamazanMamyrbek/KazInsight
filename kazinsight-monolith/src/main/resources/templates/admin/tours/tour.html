@@ -14,6 +14,7 @@
         <li><strong>Start Date</strong>: <span th:text="${tour.startDate.toString()}"></span></li>
         <li><strong>End Date</strong>: <span th:text="${tour.endDate.toString()}"></span></li>
         <li><strong>Price</strong>: <span th:text="${tour.price}"></span></li>
+        <li><strong>Location</strong>: <span th:text="${tour.location}"></span></li>
         <div th:each="image: ${tour.images}" class="display: flex; justify-content: space-between">
             <li><img height="100px" width="100px" th:src="${image.link}" alt="#"></li>
         </div>

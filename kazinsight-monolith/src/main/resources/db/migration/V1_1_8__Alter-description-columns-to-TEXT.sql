@@ -1,0 +1,2 @@
+ALTER TABLE places ALTER COLUMN description TYPE TEXT;
+ALTER TABLE tours ALTER COLUMN description TYPE TEXT;

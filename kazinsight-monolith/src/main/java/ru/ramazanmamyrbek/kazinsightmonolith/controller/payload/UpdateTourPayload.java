@@ -22,6 +22,9 @@ public record UpdateTourPayload(
         LocalDateTime endDate,
         @Min(value = 10, message = "{tours.create.errors.price_is_invalid}")
         Double price,
+        @NotNull(message = "{tours.create.errors.location_is_null}")
+        @NotBlank(message = "{tours.create.errors.location_is_blank}")
+        String location,
         List<MultipartFile> images
 ) {
 }

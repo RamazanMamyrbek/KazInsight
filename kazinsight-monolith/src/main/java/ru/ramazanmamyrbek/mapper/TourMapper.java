@@ -13,6 +13,7 @@ public class TourMapper {
         tour.setStartDate(newTourPayload.startDate());
         tour.setEndDate(newTourPayload.endDate());
         tour.setPrice(newTourPayload.price());
+        tour.setLocation(newTourPayload.location());
         return tour;
     }
     public Tour updateTourPayloadToTour(UpdateTourPayload newTourPayload, Tour tour) {
@@ -21,6 +22,7 @@ public class TourMapper {
         tour.setStartDate(newTourPayload.startDate());
         tour.setEndDate(newTourPayload.endDate());
         tour.setPrice(newTourPayload.price());
+        tour.setLocation(newTourPayload.location());
         return tour;
     }
 }

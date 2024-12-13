@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>General fragments</title>
+</head>
+<body>
+<div th:fragment="navbar" id="navbar">
+    <div class="navbar-item-group">
+        <a th:href="@{/users/main}"><img id="logo" src="/imgs/logo.png" alt=""></a>
+        <img id="location-img" src="/imgs/location.png" alt="">
+        <div id="location-container">
+            <span id="location-text">Almaty</span>
+            <div id="cities-container">
+                <ul id="cities-list">
+                    <a th:href="@{/users/main?city=Almaty}">
+                        <li class="city">Almaty</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <ul id="navigation-menu" class="navbar-item-group">
+        <li class="navigation-menu-item">
+            <a th:href="@{/tours}">Tours</a>
+        </li>
+        <li class="navigation-menu-item">
+            <a th:href="@{/places/popular}">Popular</a>
+        </li>
+        <li class="navigation-menu-item">
+            <a th:href="@{/places/outdoor}">Outdoor</a>
+        </li>
+        <li class="navigation-menu-item">
+            <a th:href="@{/places/indoor}">Indoor</a>
+        </li>
+    </ul>
+
+    <div class="navbar-item-group">
+        <img id="user-icon-img" src="/imgs/user-icon.png" alt="">
+        <div id="user-nav-popup">
+            <ul id="user-nav-inner-popup">
+                <a th:href="@{/users/profile}">
+                    <li class="user-nav-popup-item">My profile</li>
+                </a>
+                <a th:href="@{/users/favourites}">
+                    <li class="user-nav-popup-item">Favorites</li>
+                </a>
+                <a th:href="@{/users/my-tours}">
+                    <li class="user-nav-popup-item">My tours</li>
+                </a>
+                <a th:href="@{/logout}">
+                    <li class="user-nav-popup-item">LogOut</li>
+                </a>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
