@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логин/Регистрация</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <script src="https://kit.fontawesome.com/7fb7fffe92.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<form id="reg-form" th:action="@{/auth}" method="post">
+    <div>
+        <button class="btn form-btn" id="form-login-btn">Login</button>
+        <button class="btn form-btn" id="form-signup-btn">Registration</button>
+    </div>
+    <div class="fields">
+        <div id="login-inputs" >
+            <input type="email" class="field" name="username" placeholder="Электронная почта" required>
+            <input type="password" class="field" name="password" placeholder="Пароль" required>
+        </div>
+        <div id="reg-inputs">
+            <input type="text" class="field" name="firstName" placeholder="Имя" required>
+            <input type="text" class="field" name="lastName" placeholder="Фамилия" required>
+            <input type="email" class="field" name="email" placeholder="Электронная почта" required>
+            <input type="password" class="field" name="signup-password" placeholder="Пароль" required>
+            <input type="password" class="field" name="confirmation-password" placeholder="Повторите пароль" required>
+        </div>
+        <input id="auth-type" name="auth-type" type="hidden" value="">
+    </div>
+    <button id="registration-btn" class="btn submit-btn">Логин</button>
+</form>
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>

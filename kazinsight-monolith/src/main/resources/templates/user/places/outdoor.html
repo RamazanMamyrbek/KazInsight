@@ -18,7 +18,7 @@
     </div>
     <hr id="divider-line">
     <div id="items">
-        <a th:each="place : ${places}" th:href="@{/places/{placeId}(palceId=${place.id})}" class="item">
+        <a th:each="place : ${places}" th:href="@{/places/{placeid}(palceId=${place.id})}" class="item">
             <img class="item-img" th:src="${place.images.size() > 0 ? place.images.getFirst().link : ''}" alt="">
             <span class="item-name" th:text="${place.name}">Tour to Big Almaty Lake</span>
         </a>

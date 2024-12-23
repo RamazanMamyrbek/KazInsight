@@ -71,7 +71,7 @@
         <div id="reviews-wrapper">
             <div th:each="review : ${reviews}" class="user-review">
                 <div class="reviewer-img-container">
-                    <img th:src="@{/imgs/bugs-bunny.png}" alt="" class="reviewer-img">
+                    <img th:src="@{/imgs/user-icon-icon.png}" alt="" class="reviewer-img">
                     <span th:text="${review.creator.getFirstName() + ' ' + review.creator.getLastName()}" class="reviewer-name">Bugs Bunny</span>
                     <div class="stars-container user-stars-container">
                         <i class="fa-solid fa-star"></i>

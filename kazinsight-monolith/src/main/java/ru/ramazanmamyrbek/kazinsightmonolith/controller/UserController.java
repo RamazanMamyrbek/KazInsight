@@ -28,8 +28,15 @@ public class UserController {
 
     @GetMapping("/home")
     public String homePage() {
-        return "user/home";
+        return "user/index";
     }
+
+    @GetMapping("/auth/login-page")
+    public String getLoginPage() {
+
+        return "user/login";
+    }
+
     @GetMapping("/auth/register")
     public String registerPage(@ModelAttribute("user")NewUserPayload newUserPayload) {
         return "user/auth/register";
